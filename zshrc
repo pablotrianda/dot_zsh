@@ -27,18 +27,17 @@ alias ka="python $HOME/Utilities/keep_alive.py"
 alias android="/home/pablo/android-studio/bin/studio.sh"
 alias v="vim"
 alias '?'="web_search"
+alias accio="file_search"
 
 function web_search(){
-    args="$*"
-    search=""
-    for (( i=0; i<=${#args}; i++ )); do
-       if [[ ! -z "$args[i]"  && " " != $args[i] ]]
-       then
-          search+="$args[i]+";
-       fi
-    done;
-    lynx "https://lite.duckduckgo.com/lite/?q=$search"
+   args="$*"
+   search=`echo "$args" | sed "s/ /+/"`
 
+   lynx -vikeys "https://lite.duckduckgo.com/lite/?q=$search"
+}
+
+function file_search(){
+   find . -iname "*$**"
 }
 
 # Varaible path
@@ -50,4 +49,3 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 export GO111MODULE=on
-
